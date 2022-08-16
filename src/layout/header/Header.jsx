@@ -9,7 +9,7 @@ const Header = ({props}) => {
     let navi = useNavigate();
     return(
         <header>
-             <a onClick={()=>{navi("/") ;storeState.setRender() }} ><p >SHOP NONAME</p> </a>
+             <a onClick={()=>{navi("/clothing/") ;storeState.setRender() }} ><p >SHOP NONAME</p> </a>
             
             <div className='controll'>
                 <a data-coust={storeState.numberProduct} onClick={()=> storeState.changeDis()} ><i className="fa-solid fa-cart-shopping"></i></a>

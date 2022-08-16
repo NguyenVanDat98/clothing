@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "build": "^0.1.4",
     "deploy": "^1.0.3",
+    "gh-pages": "^4.0.0",
     "json-server": "^0.17.0",
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.2",
@@ -25,7 +26,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch src/server/db.json --port 3300 "
+    "server": "json-server --watch src/server/db.json --port 3300 ",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
