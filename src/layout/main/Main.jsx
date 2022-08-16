@@ -25,8 +25,10 @@ const handleAdd =(el)=>{
             headers: {"Content-Type": "application/json"},
             body : JSON.stringify({...el, coust:1})
 
-        } )}
+        } )
         storeState.setRender()
+    
+    }
 }
 
     return (

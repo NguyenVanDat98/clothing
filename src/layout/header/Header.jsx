@@ -16,7 +16,7 @@ const Header = ({props}) => {
                 <span><i className="fa-solid fa-bars"></i></span>
                 <div className="dropdown-menu">
                     <ul className="dropdown">
-                        <li><Link to="/shop/add">Create Product  </Link> </li>
+                        <li><Link to="/clothing/add">Create Product  </Link> </li>
                         <li>View Cart</li>                                
                 </ul>
                 

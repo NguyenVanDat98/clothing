@@ -32,7 +32,7 @@ import { observer } from "mobx-react"
       <Header></Header>
       <Routes>
       {data && <Route path='/clothing/' element={<Main dataCart={dataCart} data={data} />}> </Route>}
-        <Route path='/shop/add' element={<FormCreate/>}> </Route>
+        <Route path='/clothing/add' element={<FormCreate/>}> </Route>
       </Routes>
       
     </div>
