@@ -1,0 +1,94 @@
+.Card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 384px;
+    width: 282px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow:  5px 2px 8px black;
+    position: relative;
+    top: 0;
+    transition: top linear 0.1s;
+    padding: 3px;
+    
+  
+    img {
+        display: block;
+       
+        width: 100%;
+        
+        height: 258px;
+        box-shadow: 5px 2px 8px black; 
+    }
+    h1{
+        
+        font-family: Abel;
+font-size: 25px;
+font-weight: 400;
+line-height: 32px;
+letter-spacing: 0px;
+text-align: left;
+
+    }
+    h5 {
+        margin-bottom: 5px;
+        font-size: 20px;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden ;
+
+    }
+    section {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        // line-height: 40px;
+        button {
+            display: block;           
+            border: unset;
+            background-color: #4AB9F8;
+            color: white;
+            font-size: 16px;
+            height: 41px;
+            width: 120px;
+            left: 80px;
+            top: 329px;
+            border-radius: 6px;           
+
+        }
+    }
+}
+.listCard{
+    width: 100%;
+    margin: 30px auto;
+    display: grid;
+    justify-items: center;    
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 35px;
+}
+
+
+@media (max-width:1268px ) {
+    .listCard{
+     
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width:950px ) {
+    .listCard{
+      
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width:650px ) {
+    .listCard{
+      
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
