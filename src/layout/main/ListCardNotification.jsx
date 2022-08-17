@@ -1,13 +1,12 @@
 import React from "react";
 import CardNotification from "../../component/CardNotification";
-import "./styleCard/listCadNof.scss";
-import { observer } from "mobx-react"
-import storeState from "../../common/storeState";
+import "../../style/index.scss";
+import { storeState, observer } from '../../common';
 
-const ListCardNotification = ({ data, status }) => {
+const ListCardNotification = ({ data }) => {
   return (
     <div
-      style={{ display: status ? "block" : "none" }}
+      style={{ display: storeState.statusDisplay ? "block" : "none" }}
       className="list-notification"
     ><section>
       {data &&
@@ -32,4 +31,4 @@ const ListCardNotification = ({ data, status }) => {
   );
 };
 
-export default ListCardNotification;
+export default observer(ListCardNotification);

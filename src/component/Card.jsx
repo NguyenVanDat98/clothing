@@ -1,15 +1,17 @@
 import React from 'react'; 
 import "../style/index.scss"
 
-const Card =({name,imgg,price,button,id})=> {
-
+const Card =(props)=> {
+   const{name,imgg,price,file}=props.data;
+console.log(file);
     return (
         <div className='Card'>
-            <img src={imgg}  />
+            
+            <img src={file||imgg}  />
             <section>
             <h2>{name}</h2>
             <h5>${price} </h5>
-            <button onClick={()=>button({name,imgg,price,id})} >Add to Cart</button>
+            <button onClick={()=>props.button(props.data)} >Add to Cart</button>
             
             </section>
         </div>

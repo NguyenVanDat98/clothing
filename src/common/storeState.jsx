@@ -10,12 +10,17 @@ class Timer {
     render = true
     numberProduct = 0
     total = 0
+    data 
+    check= false;
 
     constructor() {
         makeAutoObservable(this)
     }
     setRender(){
-        this.render= !this.render
+        this.render = !this.render
+    }
+    setCheck(){
+        this.check= !this.check
     }
 
     changeDis() {
@@ -34,6 +39,9 @@ class Timer {
     }
     setTotal(e){
         this.total= e
+    }
+    setData(e){
+        this.data = e
     }
 }
 
