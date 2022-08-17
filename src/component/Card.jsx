@@ -1,5 +1,5 @@
 import React from 'react'; 
-import "../layout/main/styleCard/card.scss"
+import "../style/index.scss"
 
 const Card =({name,imgg,price,button,id})=> {
 

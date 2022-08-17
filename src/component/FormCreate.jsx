@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { API_URL, DATA_1, makeId } from '../common/common';
-import "../layout/main/styleForm/form.scss"
+import "..//style/index.scss"
 
 const FormCreate = ({ }) => {
     const [name , setName ]=useState("");

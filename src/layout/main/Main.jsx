@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import storeState from '../../common/storeState';
-import ListsCard from '../../component/ListsCard';
 import ListCardNotification from './ListCardNotification';
-import { observer } from "mobx-react"
-
-import "./styleMain/main.scss"
-import { API_URL, DATA_2 } from '../../common/common';
+import "../../style/index.scss"
+import { API_URL, DATA_2,storeState, observer } from '../../common';
+import ListsCard from './ListsCard';
 const Main = ({data,dataCart}) => {
 
     useEffect(()=>{

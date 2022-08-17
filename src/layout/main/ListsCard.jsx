@@ -1,8 +1,5 @@
 import React from 'react';
-import { API_URL, DATA_2 } from '../common/common';
-import storeState from '../common/storeState';
-import Card from './Card';
-
+import Card from '../../component/Card';
 
 const  ListsCard = ({data,handleAdd}) => {
 
