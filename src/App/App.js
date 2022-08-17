@@ -24,13 +24,13 @@ import {API_URL, DATA_1, DATA_2,storeState, observer }from '../common'
 
   useEffect(()=>{
       storeState.setNum(dataCart.length)
-      storeState.setData(data)
-      storeState.SetSum(data.length)
+     
+      storeState.setSum(data.length)
   },[data])
 
   return (
     <div className="App">
-      <Header></Header>
+      <Header/>
       <Routes>
       <Route path='/clothing/' element={<Main dataCart={dataCart} data={data} />}> </Route>
       <Route path='/clothing/add' element={<FormCreate/>}> </Route>

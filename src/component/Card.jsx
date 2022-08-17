@@ -3,7 +3,6 @@ import "../style/index.scss"
 
 const Card =(props)=> {
    const{name,imgg,price,file}=props.data;
-console.log(file);
     return (
         <div className='Card'>
             

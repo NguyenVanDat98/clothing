@@ -10,11 +10,12 @@ class Timer {
     render = true
     numberProduct = 0
     total = 0
-    data 
+    data
     check= false;
 
     constructor() {
         makeAutoObservable(this)
+    
     }
     setRender(){
         this.render = !this.render
@@ -34,7 +35,7 @@ class Timer {
     setNum(e){
         this.numberProduct = e
     }
-    SetSum(e){
+    setSum(e){
         this.SumProduct = e
     }
     setTotal(e){

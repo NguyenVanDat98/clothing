@@ -7,6 +7,7 @@ import toast, {Toaster} from 'react-hot-toast';
 
 const Main = ({data,dataCart}) => {
 
+
     useEffect(()=>{
         storeState.setNum(dataCart.length) 
         let total = dataCart.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.coust)) ,0)  
@@ -14,8 +15,10 @@ const Main = ({data,dataCart}) => {
     },[dataCart,storeState.total]);
 
 const handleAdd =(el)=>{
+  
     // console.log(el.coust)
-    if(dataCart.map(e=>e.id).includes(el.id)){
+    let indexProdcut = dataCart.findIndex(item => item.id === el.id);
+    if(indexProdcut !== -1){
 
         toast.success(`${dataCart.filter(e=>e.id==el.id)[0].name}  :  ${dataCart.filter(e=>e.id==el.id)[0].coust +1} , ${(dataCart.filter(e=>e.id==el.id)[0].coust+1)*dataCart.filter(e=>e.id==el.id)[0].price}$`)
         fetch(API_URL+DATA_2+`/${el.id}`,{
