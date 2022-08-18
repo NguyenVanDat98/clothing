@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import storeState from "../common/storeState";
 import { observer } from "mobx-react";
 import { API_URL, DATA_2 } from "../common/common";
-import toast, {Toaster} from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
-const CardNotification = ({ name, price, coust, imgg, id }) => {
+const CardNotification = ({ name, price, count, imgg, id }) => {
     const handle =(id)=>{
        fetch(API_URL+DATA_2+`/${id}`,{
         method:"DELETE"
        })
-
        storeState.setRender()
        toast.success(' Delete Successfully!')
     }
@@ -17,17 +16,17 @@ const CardNotification = ({ name, price, coust, imgg, id }) => {
          fetch(API_URL+DATA_2+`/${id}` , {
             method :"PUT",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, price, coust: coust+1 , imgg, id }) 
+            body: JSON.stringify({ name, price, count: count+1 , imgg, id }) 
          } )
        storeState.setRender()
       
   }
     const handleDown =(id)=>{
 
-       coust!==1&& fetch(API_URL+DATA_2+`/${id}` , {
+       count!==1&& fetch(API_URL+DATA_2+`/${id}` , {
         method :"PUT",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, price, coust: coust-1 , imgg, id }) 
+        body: JSON.stringify({ name, price, count: count-1 , imgg, id }) 
      } )
      storeState.setRender()
 
@@ -37,11 +36,11 @@ const CardNotification = ({ name, price, coust, imgg, id }) => {
       
       <img width="40px" height={40} src={imgg} alt="" />
       <p>{name}</p>
-      <div className="coust">
+      <div className="count">
         <a onClick={()=>handleDown(id)}>
           <i className="fa-solid fa-circle-minus"></i>{" "}
         </a>
-        <span>{coust}</span>
+        <span>{count}</span>
         <a onClick={() =>handleUP(id)}>
           <i className="fa-solid fa-circle-plus"></i>{" "}
         </a>

@@ -11,21 +11,24 @@ const FormCreate = ({}) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (storeState.data.filter((ee) => ee.name == name).length > 0) {
-      toast.error("Use name product diffrent,Please!");
-    } else if (name && price) {
+    let isValidData = storeState.data.findIndex((ee)=> ee.name == name)
+    //////valid data input for user /////
+    if (isValidData!== -1 ) {
+        toast.error("Use name product diffrent,Please!");
+    } else {
       fetch(API_URL + DATA_1, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          price,
-          file,
-          imgg,
-          id: makeId(12),
-          coust: 1,
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            price,
+            file,
+            imgg,
+            id: makeId(12),
+            count: 1,
         }),
       });
+      ////// set null input for user
       setName("");
       setPrice("");
       setImgg("");
@@ -70,7 +73,7 @@ const FormCreate = ({}) => {
           />
 
           <div className="block">
-            {" "}
+            
             <div className="circle"> </div>
           </div>
         </div>
@@ -82,11 +85,11 @@ const FormCreate = ({}) => {
             id="urlImg"
             onChange={(e) =>
               storeState.check
-                ? setImgg(e.target.value)
-                : setfile(URL.createObjectURL(e.target.files[0]))
+                ?  setfile(URL.createObjectURL(e.target.files[0]))
+                :setImgg(e.target.value)
             }
-            type={storeState.check ? "text" : "file"}
-          />{" "}
+            type={storeState.check ? "file": "text" }
+          />
         </div>
 
         <div className="button">

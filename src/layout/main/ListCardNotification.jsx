@@ -10,14 +10,14 @@ const ListCardNotification = ({ data }) => {
       className="list-notification"
     ><section>
       {data &&
-        data.map(({ name, price, id, coust, imgg }, index) => (
+        data.map(({ name, price, id, count, imgg }, index) => (
           <CardNotification
             key={index}
             name={name}
             price={price}
             imgg={imgg}
             id={id}
-            coust={coust}
+            count={count}
           />
         ))}
 

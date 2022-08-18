@@ -5,7 +5,7 @@ import { makeAutoObservable } from "mobx"
 // Model the application state.
 class Timer {
     statusDisplay = false
-    coust = 0
+    count = 0
     SumProduct = 0
     render = true
     numberProduct = 0
@@ -28,8 +28,8 @@ class Timer {
         this.statusDisplay = !this.statusDisplay
     }
 
-    coustProduct() {
-        this.coust += 1
+    countProduct() {
+        this.count += 1
     }
        
     setNum(e){
