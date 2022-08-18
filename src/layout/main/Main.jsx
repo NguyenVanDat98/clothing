@@ -12,15 +12,22 @@ const Main = ({}) => {
 ////////fetch DATA API/////////////
     const fetchData =  useCallback(async()=>{ 
       await fetch(API_URL+DATA_1).then(res=>res.json()).then(resole=>setData(resole)).catch(err=>console.log(err))
-      await fetch(API_URL+DATA_2).then(res=>res.json()).then(resole=>setDataCart(resole)).catch(err=>console.log(err))
+   
+    },[])
+    const fetCart =useCallback (async()=>{
+        await fetch(API_URL+DATA_2).then(res=>res.json()).then(resole=>setDataCart(resole)).catch(err=>console.log(err))
     },[storeState.render])
   
     useEffect(()=>{
         fetchData()
     },[fetchData]);
+
+    useEffect(()=>{
+        fetCart()
+    },[fetCart])
     ////////set count Product
     useEffect(()=>{
-        storeState.setNum(dataCart.length)   
+        storeState.setNum(dataCart.reduce((a,e)=>a+e.count ,0))   
         storeState.setData(data)    
         storeState.setSum(data.length)
         let total = dataCart.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.count)) ,0)  
@@ -33,17 +40,17 @@ const handleAdd =(el)=>{
 
     if(indexProdcut !== -1){
         //////// if find id Success then do it
-        toast.success(`${indexProdcutSelect.name}  :  ${indexProdcutSelect.count +1} , ${(indexProdcutSelect.count+1)*indexProdcutSelect.price}$`)
         fetch(API_URL+DATA_2+`/${el.id}`,{
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body : JSON.stringify({...el, count: indexProdcutSelect.count +1})
         } )
+        toast.success(`${indexProdcutSelect.name}  :  ${indexProdcutSelect.count +1} , ${(indexProdcutSelect.count+1)*indexProdcutSelect.price}$`)
 
     }else{
         /////////else can't find do it
         dataCart.push({...el,count:1})
-        storeState.setNum(dataCart.length)
+        storeState.setNum(dataCart.reduce((a,e)=>a+e.count ,0))
         fetch(API_URL+DATA_2,{
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -55,8 +62,7 @@ const handleAdd =(el)=>{
 }
 
     return (
-        <div className='mainContent'>
-           
+        <div className='mainContent'>           
             <p>Total : {storeState.SumProduct}</p>
             <ListsCard handleAdd={handleAdd} data={data}/>
             <ListCardNotification data={dataCart}   />

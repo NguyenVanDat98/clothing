@@ -35,7 +35,8 @@ header{
             }
         }
         &>a {
-            &::before{
+            &::before{ 
+                content: attr(data-count);
                 position: absolute;
                 top: 5px;
                 right: -15px;
@@ -47,7 +48,7 @@ header{
                 font-size: 1rem;
                 color: white;
                 background-color: red;
-                content: attr(data-count);
+              
     
             }
         }

@@ -5,12 +5,12 @@ import { API_URL, DATA_2 } from "../common/common";
 import toast from 'react-hot-toast';
 
 const CardNotification = ({ name, price, count, imgg, id }) => {
-    const handle =(id)=>{
+    const handleDelete =(id)=>{
        fetch(API_URL+DATA_2+`/${id}`,{
         method:"DELETE"
        })
        storeState.setRender()
-       toast.success(' Delete Successfully!')
+       toast.success(`${name} : Delete Successfully!`)
     }
     const handleUP =(id)=>{  
          fetch(API_URL+DATA_2+`/${id}` , {
@@ -22,7 +22,6 @@ const CardNotification = ({ name, price, count, imgg, id }) => {
       
   }
     const handleDown =(id)=>{
-
        count!==1&& fetch(API_URL+DATA_2+`/${id}` , {
         method :"PUT",
         headers: { 'Content-Type': 'application/json' },
@@ -46,7 +45,7 @@ const CardNotification = ({ name, price, count, imgg, id }) => {
         </a>
       </div>
       <a> ${price}</a>
-      <a onClick={()=>handle(id)}>
+      <a onClick={()=>handleDelete(id)}>
         {" "}
         <i className="fa-solid fa-ban"></i>
       </a>
