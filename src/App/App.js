@@ -11,8 +11,8 @@ import './App.css';
     <div className="App">
       <Header/>
       <Routes>
-        <Route path='/clothing/' element={<Main/>}> </Route>
-        <Route path='/clothing/add' element={<FormCreate/>}> </Route>
+        <Route path='/' element={<Main/>}> </Route>
+        <Route path='/add' element={<FormCreate/>}> </Route>
       </Routes>
       </div>
   );

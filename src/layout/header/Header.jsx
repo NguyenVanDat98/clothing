@@ -9,7 +9,7 @@ const Header = ({props}) => {
     let navi = useNavigate();
     return(
         <header>
-             <a onClick={()=>{navi("/clothing/")}} ><p >SHOP NONAME </p>  </a>
+             <a onClick={()=>{navi("/")}} ><p >SHOP NONAME </p>  </a>
             
             <div className='controll'>
                 <div className='guide'>
@@ -25,7 +25,7 @@ const Header = ({props}) => {
                 <span><i className="fa-solid fa-bars"></i></span>
                 <div className="dropdown-menu">
                     <ul className="dropdown">
-                        <li><Link to="/clothing/add">Create Product  </Link> </li>
+                        <li><Link to="/add">Create Product  </Link> </li>
                         <li>View Cart</li>                                
                 </ul>
                 
