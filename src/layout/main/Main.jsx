@@ -82,7 +82,7 @@ const handleAdd =(el)=>{
     }else{
         /////////else can't find do it
         dataCart.push({...el,count:1})
-        storeState.setNum(dataCart.reduce((a,e)=>a+e.count ,0))
+        storeState.setTotal({...storeState.total , Users:dataCart.reduce((a,e)=>a+e.count ,0) })
         fetch(API_URL+DATA_2,{
             method: "POST",
             headers: {"Content-Type": "application/json"},
