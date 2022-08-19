@@ -4,7 +4,7 @@ import {  } from "mobx-react";
 import { API_URL, DATA_2 } from "../common/common";
 import toast from 'react-hot-toast';
 import { useDispatch , useSelector} from 'react-redux';
-import { changeAction, CHANGE_STATE_COUNTCART, CHANGE_TODO_DATA_USER } from "../Redux/Reducer/Reducer";
+import { changeAction, CHANGE_STATE_BILL, CHANGE_STATE_COUNTCART, CHANGE_TODO_DATA_USER } from "../Redux/Reducer/Reducer";
 
 
 const CardNotification = ({ name, price, count, imgg, id }) => {
@@ -22,25 +22,28 @@ const CardNotification = ({ name, price, count, imgg, id }) => {
        toast.success(`${dataItem.name} : Delete Successfully!`)
       item.splice(indexProduct,1)
       dispatch(changeAction(CHANGE_TODO_DATA_USER, item ))
+    dispatch(changeAction(CHANGE_STATE_BILL, item.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.count)) ,0) ))
       dispatch(changeAction(CHANGE_STATE_COUNTCART, item.reduce((a,e)=>a+e.count ,0)))
        dispatch(changeAction("Change/State-render"))
     }
-    const handleUP =(id)=>{  
+    const handleUP = async(id)=>{  
       item[indexProduct].count ++ 
-         fetch(API_URL+DATA_2+`/${id}` , {
+        await fetch(API_URL+DATA_2+`/${id}` , {
             method :"PUT",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, price, count: dataItem.count+1 , imgg, id }) 
          } )
+         
+    dispatch(changeAction(CHANGE_STATE_BILL, item.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.count)) ,0) ))
          dispatch(changeAction(CHANGE_TODO_DATA_USER, item ))
       dispatch(changeAction(CHANGE_STATE_COUNTCART, item.reduce((a,e)=>a+e.count ,0)))
          dispatch(changeAction("Change/State-render"))
 
       
   }
-    const handleDown =(id)=>{
+    const handleDown = async(id)=>{
       dataItem.count!==1&& item[indexProduct].count -- 
-       dataItem.count!==1&& fetch(API_URL+DATA_2+`/${id}` , {
+       dataItem.count!==1&&  await fetch(API_URL+DATA_2+`/${id}` , {
         method :"PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name : dataItem.name , price : dataItem.price , count: dataItem.count-1 , imgg : dataItem.imgg , id : dataItem.id  }) 

@@ -5,7 +5,7 @@ import { API_URL, DATA_2,DATA_1 } from '../../common';
 import ListsCard from './ListsCard';
 import toast from 'react-hot-toast';
 import { useDispatch , useSelector} from 'react-redux';
-import { changeAction, CHANGE_STATE_COUNTCART, CHANGE_TODO_DATA_USER } from '../../Redux/Reducer/Reducer';
+import { changeAction, CHANGE_STATE_BILL, CHANGE_STATE_COUNTCART, CHANGE_TODO_DATA_USER } from '../../Redux/Reducer/Reducer';
 
 
 const Main = ({}) => {
@@ -106,6 +106,7 @@ const handleAdd = (el)=>{
 
     }
     dispatch(changeAction(CHANGE_TODO_DATA_USER, dataCart ))
+    dispatch(changeAction(CHANGE_STATE_BILL, dataCart.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.count)) ,0) ))
     dispatch(changeAction(CHANGE_STATE_COUNTCART, dataCart.reduce((a,e)=>a+e.count ,0)))
     // dispatch(changeAction("Change/State-render"))
 }
