@@ -7,7 +7,6 @@ class Timer {
     statusDisplay = false
     count = 0
     render = true
-    total = {total: 0,Users:0 ,Num:0}
     data
     check= false
   

@@ -1,15 +1,22 @@
 import React from "react";
 import storeState from "../common/storeState";
-import { observer } from "mobx-react";
+import {  } from "mobx-react";
 import { API_URL, DATA_2 } from "../common/common";
 import toast from 'react-hot-toast';
+import { useDispatch , useSelector} from 'react-redux';
+import { changeAction } from "../Redux/Reducer/Reducer";
+
 
 const CardNotification = ({ name, price, count, imgg, id }) => {
+  let dispatch=useDispatch()
+  let change = useSelector(ee=>ee.state)
+
     const handleDelete =(id)=>{
        fetch(API_URL+DATA_2+`/${id}`,{
         method:"DELETE"
        })
-       storeState.setRender()
+      dispatch(changeAction("Change/State-render"))
+       
        toast.success(`${name} : Delete Successfully!`)
     }
     const handleUP =(id)=>{  
@@ -18,7 +25,8 @@ const CardNotification = ({ name, price, count, imgg, id }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, price, count: count+1 , imgg, id }) 
          } )
-       storeState.setRender()
+         dispatch(changeAction("Change/State-render"))
+
       
   }
     const handleDown =(id)=>{
@@ -27,7 +35,8 @@ const CardNotification = ({ name, price, count, imgg, id }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, price, count: count-1 , imgg, id }) 
      } )
-     storeState.setRender()
+     dispatch(changeAction("Change/State-render"))
+
 
     }
   return (
@@ -53,4 +62,4 @@ const CardNotification = ({ name, price, count, imgg, id }) => {
   );
 };
 
-export default observer(CardNotification);
+export default (CardNotification);

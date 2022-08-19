@@ -1,13 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ListCardNotification from './ListCardNotification';
 import "../../style/index.scss"
-import { API_URL, DATA_2,storeState, observer, DATA_1 } from '../../common';
+import { API_URL, DATA_2,DATA_1 } from '../../common';
 import ListsCard from './ListsCard';
-import toast, {Toaster} from 'react-hot-toast';
+import toast from 'react-hot-toast';
+import { useDispatch , useSelector} from 'react-redux';
+import { changeAction } from '../../Redux/Reducer/Reducer';
+
 
 const Main = ({}) => {
     const [data , setData ]=useState([]);
     const [dataCart , setDataCart ]=useState([]);  
+    let dispatch = useDispatch()
+
+    let change = useSelector(ee=>ee.state)
+    
 ////////fetch DATA API/////////////
  ///create a funtion Callback at fetch API_DATA
     const fetchData =  useCallback(async()=>{ 
@@ -15,7 +22,7 @@ const Main = ({}) => {
     },[])
     const fetCart =useCallback (async()=>{
         await fetch(API_URL+DATA_2).then(res=>res.json()).then(resole=>setDataCart(resole)).catch(err=>console.log(err))
-    },[storeState.render])
+    },[])
   //////
     useEffect(()=>{
         fetchData()
@@ -58,21 +65,24 @@ const Main = ({}) => {
 
     useEffect(()=>{
         fetCart()
-    },[storeState.render])
+    },[change.render])
     ////////set count Product
     useEffect(()=>{
+      
+
         let total = dataCart.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.count)) ,0)  
-            storeState.setTotal({ total:total , Users:dataCart.reduce((a,e)=>a+e.count ,0),Num:data.length } )
-    },[data,dataCart])
+            dispatch(changeAction("Change/State",{totalBill:total,countCart : dataCart.reduce((a,e)=>a+e.count ,0), totalProduct : data.length   }))
+            console.table(dataCart);
+    },[dataCart])
 /////////handle Control  add to Cart ////////
-const handleAdd =(el)=>{  
+const handleAdd = (el)=>{  
     let indexProdcut = dataCart.findIndex(item => item.id === el.id);
     let indexProdcutSelect = dataCart.filter(e=>e.id==el.id)[0]
-    let checkkk = dataCart.map(a=>a.id).includes(el.id)
-    console.log(checkkk);
+
+  
     if(indexProdcut !== -1){
         //////// if find id Success then do it
-        fetch(API_URL+DATA_2+`/${el.id}`,{
+      fetch(API_URL+DATA_2+`/${el.id}`,{
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body : JSON.stringify({...el, count: indexProdcutSelect.count +1})
@@ -81,8 +91,8 @@ const handleAdd =(el)=>{
 
     }else{
         /////////else can't find do it
-        dataCart.push({...el})
-        storeState.setTotal({...storeState.total , Users:dataCart.reduce((a,e)=>a+e.count ,0) })
+        // dataCart.push({...el})
+        // storeState.setTotal({...storeState.total , Users:dataCart.reduce((a,e)=>a+e.count ,0) })
         fetch(API_URL+DATA_2,{
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -90,20 +100,19 @@ const handleAdd =(el)=>{
         } )      
         toast.success('Add to Cart Successfully!')        
     }
-    storeState.setRender()
+    dispatch(changeAction("Change/State-render"))
 }
 
     return (
         <div className='mainContent'>           
-            <p>Total : {storeState.total.Num}</p>
+            <p>Total : {change.totalProduct}</p>
             <button value="nameDown" onClick={handleSort} >sort A-Z</button>
             <button value="nameUp" onClick={handleSort} >sort Z-A</button>
             <button value="priceUp" onClick={handleSort} >sort 1-9</button>
-            <button value="priceDown" onClick={handleSort} >sort 9-1</button>
-    
+            <button value="priceDown" onClick={handleSort} >sort 9-1</button>    
             <ListsCard handleAdd={handleAdd} data={data}/>
             <ListCardNotification data={dataCart}/>
         </div>
     );
 };
-export default observer(Main) ;
+export default Main ;

@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { API_URL, DATA_1, makeId, storeState, observer } from "../common";
+import { API_URL, DATA_1, makeId,  } from "../common";
+import storeState from "../common/storeState";
+import { observer } from "mobx-react"
 import "../style/index.scss";
 
 const FormCreate = ({}) => {

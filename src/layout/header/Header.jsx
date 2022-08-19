@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import storeState from '../../common/storeState';
-import { observer } from "mobx-react"; 
+import {  } from "mobx-react"; 
 import { useNavigate } from "react-router-dom";
+import { useSelector} from 'react-redux';
 
 import "../../style/index.scss";
 const Header = ({props}) => {
+    let change = useSelector(ee=>ee.state)
     let navi = useNavigate();
     return(
         <header>
@@ -21,7 +23,7 @@ const Header = ({props}) => {
                          </p>                   
                 
                 </div>
-                <a data-count={storeState.total.Users} onClick={()=> storeState.changeDis()} ><i className="fa-solid fa-cart-shopping"></i></a>
+                <a data-count={change.countCart} onClick={()=> storeState.changeDis()} ><i className="fa-solid fa-cart-shopping"></i></a>
                 <span><i className="fa-solid fa-bars"></i></span>
                 <div className="dropdown-menu">
                     <ul className="dropdown">
@@ -35,4 +37,4 @@ const Header = ({props}) => {
     )
 }
 
-export default observer(Header) ;
+export default (Header) ;

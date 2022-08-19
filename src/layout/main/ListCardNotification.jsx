@@ -1,9 +1,14 @@
 import React from "react";
 import CardNotification from "../../component/CardNotification";
 import "../../style/index.scss";
-import { storeState, observer } from '../../common';
+import { useSelector} from 'react-redux';
+import storeState from "../../common/storeState";
+import { observer } from "mobx-react"
+
 
 const ListCardNotification = ({ data }) => {
+  let change = useSelector(ee=>ee.state)
+
   return (
     <div
       style={{ display: storeState.statusDisplay ? "block" : "none" }}
@@ -24,7 +29,7 @@ const ListCardNotification = ({ data }) => {
     </section>
 
       <div className="preview-total">
-        <p>Total : $ {storeState.total.total} </p>
+        <p>Total : $ {change.totalBill} </p>
         <button>Payment</button>
       </div>
     </div>
