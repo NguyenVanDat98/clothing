@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { API_URL, DATA_1, makeId, storeState, observer } from "../common";
 import "../style/index.scss";
 
 const FormCreate = ({}) => {
+  const [data , setData ]=useState([]);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [imgg, setImgg] = useState("");
   const [file, setfile] = useState("");
 
+  const fetchData = useCallback (async()=>{ 
+    await fetch(API_URL+DATA_1).then(res=>res.json()).then(re=>setData(re)).catch(err=>console.log(err))
+  },[])
+    useEffect(()=>{
+        fetchData()
+    },[]);
   function handleSubmit(e) {
     e.preventDefault();
-    let isValidData = storeState.data.findIndex((ee)=> ee.name == name)
+
+    let isValidData = data.findIndex(ee=> ee.name === name)
     //////valid data input for user /////
     if (isValidData!== -1 ) {
         toast.error("Use name product diffrent,Please!");

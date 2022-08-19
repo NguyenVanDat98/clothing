@@ -24,7 +24,7 @@ const ListCardNotification = ({ data }) => {
     </section>
 
       <div className="preview-total">
-        <p>Total : $ {storeState.total} </p>
+        <p>Total : $ {storeState.total.total} </p>
         <button>Payment</button>
       </div>
     </div>

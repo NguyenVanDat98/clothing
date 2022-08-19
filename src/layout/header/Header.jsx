@@ -21,7 +21,7 @@ const Header = ({props}) => {
                          </p>                   
                 
                 </div>
-                <a data-count={storeState.numberProduct} onClick={()=> storeState.changeDis()} ><i className="fa-solid fa-cart-shopping"></i></a>
+                <a data-count={storeState.total.Users} onClick={()=> storeState.changeDis()} ><i className="fa-solid fa-cart-shopping"></i></a>
                 <span><i className="fa-solid fa-bars"></i></span>
                 <div className="dropdown-menu">
                     <ul className="dropdown">

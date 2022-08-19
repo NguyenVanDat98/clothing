@@ -11,15 +11,19 @@ form {
     box-shadow: 2px 3px 8px black;
     font-size: 2rem;
     padding: 20px;
+    h2{
+        transition: all 0.3s linear;
+
+    }
     .button{
-        margin:60px auto;
+        margin:30px auto;
         width: max-content;
         
         button {
             font-size: 20px;
             width: 120px;
             height: 50px;
-            margin: 20px;
+            margin: 15px;
             border-radius: 5px;
             border: unset;
             &:nth-child(1){
@@ -33,25 +37,29 @@ form {
         }
     }
     div {
-        margin-top: 40px;
+        margin-top: 20px;
         display: flex;
         width: 100%;
         label {
             text-align: left    ;
             width: 130px;
+        transition: all 0.3s linear;
+
         }
-        input {
+        input:not(input[type=file]) {
             flex-grow: 1;
             border: unset;
             border-bottom: 1px solid black;
-            font-size: 1rem;
-
-          
+            font-size: 1rem;  
+            
             &:focus{
-                border: unset;
-                outline: none   ;
-             
+                border-bottom: 2px solid rgb(45, 113, 153);                
+                outline: none   ;             
             }
+        }
+        &:nth-child(5) {
+            margin-top: 0px;
+            // background-color: black;
         }
     }
 }
@@ -97,6 +105,24 @@ form {
             height : 100%;
             transform: translateX(0px);
             transition: transform .1s linear ;
+        }
+    }
+}
+@media (max-width:600px) {
+    form{
+        width: 90%;
+        h2{
+            font-size: 30px;
+            transition: all 0.3s linear;
+        }
+        div{
+
+            label{
+                font-size: 20px;
+                width: 90px;
+                transition: all 0.3s linear;
+    
+            }
         }
     }
 }
