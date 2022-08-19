@@ -6,10 +6,8 @@ import { makeAutoObservable } from "mobx"
 class Timer {
     statusDisplay = false
     count = 0
-    SumProduct = 0
     render = true
-    numberProduct = 0
-    total = 0
+    total = {total: 0,Users:0 ,Num:0}
     data
     check= false;
 
@@ -32,12 +30,6 @@ class Timer {
         this.count += 1
     }
        
-    setNum(e){
-        this.numberProduct = e
-    }
-    setSum(e){
-        this.SumProduct = e
-    }
     setTotal(e){
         this.total= e
     }
