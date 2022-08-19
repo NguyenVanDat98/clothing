@@ -15,7 +15,7 @@ const Main = ({}) => {
     },[])
     const fetCart =useCallback (async()=>{
         await fetch(API_URL+DATA_2).then(res=>res.json()).then(resole=>setDataCart(resole)).catch(err=>console.log(err))
-    },[])
+    },[storeState.render])
   //////
     useEffect(()=>{
         fetchData()
@@ -62,7 +62,7 @@ const Main = ({}) => {
     ////////set count Product
     useEffect(()=>{
         let total = dataCart.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.count)) ,0)  
-            storeState.setTotal({...storeState.total, total:total , Users:dataCart.reduce((a,e)=>a+e.count ,0),Num:data.length } )
+            storeState.setTotal({ total:total , Users:dataCart.reduce((a,e)=>a+e.count ,0),Num:data.length } )
     },[data,dataCart])
 /////////handle Control  add to Cart ////////
 const handleAdd =(el)=>{  
@@ -81,12 +81,12 @@ const handleAdd =(el)=>{
 
     }else{
         /////////else can't find do it
-        dataCart.push({...el,count:1})
+        dataCart.push({...el})
         storeState.setTotal({...storeState.total , Users:dataCart.reduce((a,e)=>a+e.count ,0) })
         fetch(API_URL+DATA_2,{
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body : JSON.stringify({...el, count:1})
+            body : JSON.stringify({...el})
         } )      
         toast.success('Add to Cart Successfully!')        
     }

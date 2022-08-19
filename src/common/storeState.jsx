@@ -9,8 +9,8 @@ class Timer {
     render = true
     total = {total: 0,Users:0 ,Num:0}
     data
-    check= false;
-
+    check= false
+  
     constructor() {
         makeAutoObservable(this)
     
@@ -32,6 +32,7 @@ class Timer {
        
     setTotal(e){
         this.total= e
+        console.log(e);
     }
     setData(e){
         this.data = e
