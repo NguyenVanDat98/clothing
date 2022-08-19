@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import storeState from '../../common/storeState';
-import {  } from "mobx-react"; 
+import { observer } from "mobx-react"; 
 import { useNavigate } from "react-router-dom";
 import { useSelector} from 'react-redux';
 
@@ -37,4 +37,4 @@ const Header = ({props}) => {
     )
 }
 
-export default (Header) ;
+export default observer(Header) ;

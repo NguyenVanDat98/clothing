@@ -6,16 +6,16 @@ import storeState from "../../common/storeState";
 import { observer } from "mobx-react"
 
 
-const ListCardNotification = ({ data }) => {
-  let change = useSelector(ee=>ee.state)
+const ListCardNotification = () => {
+  let change = useSelector(ee=>ee)
 
   return (
     <div
       style={{ display: storeState.statusDisplay ? "block" : "none" }}
       className="list-notification"
     ><section>
-      {data &&
-        data.map(({ name, price, id, count, imgg }, index) => (
+      {change.todosList.dataUser &&
+        change.todosList.dataUser.map(({ name, price, id, count, imgg }, index) => (
           <CardNotification
             key={index}
             name={name}
@@ -29,7 +29,7 @@ const ListCardNotification = ({ data }) => {
     </section>
 
       <div className="preview-total">
-        <p>Total : $ {change.totalBill} </p>
+        <p>Total : $ {change.state.totalBill} </p>
         <button>Payment</button>
       </div>
     </div>
