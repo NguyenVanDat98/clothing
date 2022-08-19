@@ -1,4 +1,4 @@
-export const API_URL= "https://shop-app-react.herokuapp.com/api"
+export const API_URL= "https://shop-app-react.herokuapp.com/api/"
 export const DATA_1 = "listProducts"
 export const DATA_2 = "ProductSelect"
 
