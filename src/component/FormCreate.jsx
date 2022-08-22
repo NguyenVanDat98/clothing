@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { API_URL, DATA_1, makeId,  } from "../common";
+import makeId from "../common/common"
 import storeState from "../common/storeState";
 import { observer } from "mobx-react"
 import "../style/index.scss";
+import { PATH_LIST_PRODUCT } from "../Services/API/ConstantApi";
+import API from "../Services/Constant";
 
 const FormCreate = ({}) => {
   const [data , setData ]=useState([]);
@@ -12,38 +14,30 @@ const FormCreate = ({}) => {
   const [imgg, setImgg] = useState("");
   const [file, setfile] = useState("");
 
-  const fetchData = useCallback (async()=>{ 
-    await fetch(API_URL+DATA_1).then(res=>res.json()).then(re=>setData(re)).catch(err=>console.log(err))
-  },[])
     useEffect(()=>{
-        fetchData()
-    },[]);
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    let isValidData = data.findIndex(ee=> ee.name === name)
+      API.Get(PATH_LIST_PRODUCT+`?name_like=${name}`).then(res=>setData(res))
+    },[name]);
+    async function handleSubmit(e) {
+   e.preventDefault();
     //////valid data input for user /////
-    if (isValidData!== -1 ) {
+    if (data.findIndex(a=>a.name===name.trim())!==-1 ) {
         toast.error("Use name product diffrent,Please!");
     } else {
-      fetch(API_URL + DATA_1, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            price,
-            file,
-            imgg,
-            id: makeId(12),
-            count: 1,
-        }),
-      });
-      ////// set null input for user
-      setName("");
-      setPrice("");
-      setImgg("");
-      document.getElementById("urlImg").value = "";
-      toast.success("Successfully!");
+      try {
+        API.Post({name,price,file,imgg,id: makeId (12),count: 1,},PATH_LIST_PRODUCT).then(res=>{
+        if(res.status===201){
+          setName("");
+          setPrice("");
+          setImgg("");
+          document.getElementById("urlImg").value = "";
+          toast.success("Successfully!");
+        }
+      })
+      } catch (error) {
+        console.log(error);
+      }
+      
+      
     }
   }
   return (
@@ -81,9 +75,7 @@ const FormCreate = ({}) => {
               storeState.setCheck();
             }}
           />
-
           <div className="block">
-            
             <div className="circle"> </div>
           </div>
         </div>

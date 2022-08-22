@@ -1,5 +1,4 @@
-import React from "react"
-import ReactDOM from "react-dom"
+
 import { makeAutoObservable } from "mobx"
 
 // Model the application state.
@@ -7,7 +6,7 @@ class Timer {
     statusDisplay = false
     count = 0
     render = true
-    data
+
     check= false
   
     constructor() {
@@ -32,9 +31,6 @@ class Timer {
     setTotal(e){
         this.total= e
         console.log(e);
-    }
-    setData(e){
-        this.data = e
     }
 }
 

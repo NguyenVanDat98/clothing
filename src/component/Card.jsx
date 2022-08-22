@@ -2,7 +2,7 @@ import React from 'react';
 import "../style/index.scss"
 
 const Card =(props)=> {
-   const{name,imgg,price,file}=props.data;
+   const{name,imgg,price,file,id}=props.data;
     return (
         <div className='Card'>
             
