@@ -105,11 +105,10 @@ const handleAdd = (el)=>{
         toast.success('Add to Cart Successfully!')    
 
     }
-    dispatch(changeAction(CHANGE_TODO_DATA_USER, dataCart ))
-    dispatch(changeAction(CHANGE_STATE_BILL, dataCart.reduce((e,a)=> (e + parseInt(a.price)*parseInt(a.count)) ,0) ))
-    dispatch(changeAction(CHANGE_STATE_COUNTCART, dataCart.reduce((a,e)=>a+e.count ,0)))
-    // dispatch(changeAction("Change/State-render"))
-}
+    dispatch(changeAction(CHANGE_TODO_DATA_USER, dataCart));
+    dispatch(changeAction(CHANGE_STATE_BILL, SunPrice));
+    dispatch(changeAction(CHANGE_STATE_COUNTCART, CountCart));
+  };
 
     return (
         <div className='mainContent'>           
