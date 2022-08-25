@@ -1,43 +1,44 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import makeId from "../common/common"
+import makeId, { selectProduct } from "../common/common";
 import storeState from "../common/storeState";
-import { observer } from "mobx-react"
+import { observer } from "mobx-react";
 import "../style/index.scss";
-import { PATH_LIST_PRODUCT } from "../Services/API/ConstantApi";
-import API from "../Services/Constant";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchProductGet,
+  fetchProductPost,
+} from "../Redux/ReducerProduct/productAction";
 
-const FormCreate = ({}) => {
-  const [data , setData ]=useState([]);
+const FormCreate = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [imgg, setImgg] = useState("");
   const [file, setfile] = useState("");
+  const dispatch = useDispatch();
 
-    useEffect(()=>{
-      API.Get(PATH_LIST_PRODUCT+`?name_like=${name}`).then(res=>setData(res))
-    },[name]);
-    async function handleSubmit(e) {
-   e.preventDefault();
+  const dataProduct = useSelector(selectProduct);
+
+  useEffect(() => {
+    dispatch(fetchProductGet());
+  }, [dispatch]);
+  function setReset() {
+    setName("");
+    setPrice("");
+    setImgg("");
+    document.getElementById("urlImg").value = "";
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
     //////valid data input for user /////
-    if (data.findIndex(a=>a.name===name.trim())!==-1 ) {
-        toast.error("Use name product diffrent,Please!");
+    let isTrue = dataProduct.findIndex((a) => a.name === name.trim());
+    if (isTrue !== -1) {
+      toast.error("Use name product diffrent,Please!");
     } else {
-      try {
-        API.Post({name,price,file,imgg,id: makeId (12),count: 1,},PATH_LIST_PRODUCT).then(res=>{
-        if(res.status===201){
-          setName("");
-          setPrice("");
-          setImgg("");
-          document.getElementById("urlImg").value = "";
-          toast.success("Successfully!");
-        }
-      })
-      } catch (error) {
-        console.log(error);
-      }
-      
-      
+      let data = { name, price, file, imgg, id: makeId(12), count: 1 };
+      dispatch(fetchProductPost(data));
+      toast.success("Add to Product list Compele!");
+      setReset();
     }
   }
   return (
@@ -87,16 +88,16 @@ const FormCreate = ({}) => {
             id="urlImg"
             onChange={(e) =>
               storeState.check
-                ?  setfile(URL.createObjectURL(e.target.files[0]))
-                :setImgg(e.target.value)
+                ? setfile(URL.createObjectURL(e.target.files[0]))
+                : setImgg(e.target.value)
             }
-            type={storeState.check ? "file": "text" }
+            type={storeState.check ? "file" : "text"}
           />
         </div>
 
         <div className="button">
           <button type="submit">save</button>
-          <button type="reset">reset</button>
+          <button onClick={setReset}>reset</button>
         </div>
       </form>
     </div>

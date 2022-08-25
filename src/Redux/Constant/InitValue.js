@@ -1,12 +1,15 @@
-export const Initval = {
-    state: {
-        totalProduct : 0,
-        totalBill : 0,
-        countCart : 0,
-        render : true,
-    },
-    todosList : {
+export const Initval = { 
+
         dataProduct :[],
-        dataUser : []
-    }
+        dataUser : [],
+        totalProduct : function(){
+            return this.dataProduct.length
+        },
+        totalBill : function(){
+            return this.dataUser.reduce((a,b)=>a+b.price*b.count,0)
+        },
+        countCart : function(){
+            return this.dataUser.reduce((a,b)=>a+b.count,0)
+        },
+   
 }

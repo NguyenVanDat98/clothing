@@ -1,14 +1,14 @@
 
-import { API_URL, PATH_USER } from "./API/ConstantApi";
+import { API_URL, PATH_USER } from "./constantApi";
 
- const Put = async (dataItem,dataCart,indexProduct,id,eff) => {
-    eff ?( dataItem.count!==1&& dataCart[indexProduct].count--) :   dataCart[indexProduct].count++ 
-    const response =  await fetch(API_URL + PATH_USER + `/${id}`, {
+ const Put = async (dataItem,eff) => {
+    eff ?( dataItem.count!==1&& dataItem.count--) :  dataItem.count++ 
+    const response =  await fetch(API_URL + PATH_USER + `/${dataItem.id}`, {
            method: "PUT",
            headers: { "Content-Type": "application/json" },
-           body: JSON.stringify({
+           body: JSON.stringify({ 
             ...dataItem
-           }),
+           })
          });    
          return response
   };
@@ -24,17 +24,17 @@ import { API_URL, PATH_USER } from "./API/ConstantApi";
 
  const Get= async (Path)=>{
    const repose = await fetch(API_URL + Path)
-  .then((res) => res.json())
-  .then((resole) => resole
-)
+  .then(res=> res.json())
+  .then((resole) => resole)
   .catch((err) => console.log(err.message));
+
   return repose
 }
- const Delete= async (id,dataItem)=>{
+ const Delete= async (id)=>{
     const response=  await fetch(API_URL + PATH_USER + `/${id}`, {
     method: "DELETE",
   })
   return response
  }
- const API ={Put,Post,Get,Delete}
- export default API
+ const APImethod ={Put,Post,Get,Delete}
+ export default APImethod

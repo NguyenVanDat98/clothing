@@ -1,28 +1,22 @@
 import React from "react";
-import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { runDispatch } from "../common/common";
+import { useSelector, useDispatch } from "react-redux";
+import {  selectCart } from "../common/common";
+import { fetchProductUserDelete, fetchProductUserPut } from "../Redux/ReducerProduct/userAction";
 
-import API from "../Services/Constant";
 
-const CardNotification = ({ id }) => {
-  let item = useSelector((state) => state.todosList.dataUser)
-  let indexProduct = item.findIndex((a) => a.id === id);
-  let dataItem = item[indexProduct];
-  /*  function set value in Store.js  from Redux */
-  
+
+const CardNotification = ({ dataItem }) => {
+  let item = useSelector(selectCart)
+  let dispatch = useDispatch()
+
   /*Handle Delete item in Cart User */
-  const onDelete = async (id) => {
-    API.Delete(id, dataItem).then(res => {
-      if (res.status === 200) {
-        toast.success(`${dataItem.name} : Delete Successfully!`);
-        item.splice(indexProduct, 1);
-        runDispatch(item);
-      }
-    })
+  const onDelete = async (id) => { 
+      dispatch(fetchProductUserDelete(id,item))
   };
   const onCount = (bol) => {
-    API.Put(dataItem, item, indexProduct, id, bol).then(res => { if (res.status === 200) runDispatch(item) })
+    let index = item.findIndex(e=>e.id===dataItem.id)    
+    item[index].count += bol?(item[index].count!==1&& -1):+1
+    dispatch(fetchProductUserPut(dataItem.id,item))
   }
 
   return (
