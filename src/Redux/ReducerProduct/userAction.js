@@ -16,10 +16,10 @@ export const fetchProductUserGet = () => {
 };
 
 export const fetchProductUserPut = (id, data) => {
-  let dataItem = data.find(a=>a.id===id)
   return (dispatch) => {
     (async () => {
       try {
+        let dataItem = data.find(a=>a.id===id)  
         await fetch(API_URL + PATH_USER + `/${id}`, {
           method: "PUT",
           headers: {
@@ -35,10 +35,11 @@ export const fetchProductUserPut = (id, data) => {
 };
 
 export const fetchProductUserPost = (data) => {
-  const item = {...data,count : 1}
   return (dispatch) => {
     (async () => {
       try {
+        
+        const item = {...data,count : 1}
         const response = await fetch(API_URL + PATH_USER, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
